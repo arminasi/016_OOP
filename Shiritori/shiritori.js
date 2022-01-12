@@ -19,20 +19,30 @@ class Tori {
                         this.game_over = true
                         this.words = [];
                         console.log("Game over");
-                    }
+                    };
                     if(toMap[this.words[i]]) {
                         resultToReturn = true;
                         break;
-                    }
+                    };
                     toMap[this.words[i]] = true;
-                }
+                };
                 if(resultToReturn) {
                     this.game_over = true;
                     this.words = [];
                     console.log('word already exist, Game over');
-                }
-            }
-        }
+                };
+            };
+        };
+    };
+
+    restart() {
+        this.game_over = false;
+        this.words = [];
+        console.log("New Game");
+    }
+
+    words() {
+        return this.words;
     }
 }
 
@@ -44,3 +54,8 @@ game1.play("month");
 game1.play("Hit"); // uppercase letter already working
 game1.play("trim");
 game1.play("month"); // duplicate should be Game over
+
+game1.restart();
+
+game1.play("some");
+console.log(game1.words); // ["SOME"];
