@@ -7,28 +7,40 @@ class Tori {
     };
 
     play(word) {
-        if(this.words.length < 1) {
-            this.words.push(word);
+        let toMap = {};
+        let resultToReturn = false;
+        this.words.push(word.toUpperCase());
+        if(this.words.length <= 1) {
+            return;
         } else {
-            let current = 0;
-            let previousLetter = this.words[current].slice(-1);
-            this.words.push(word);
-            this.words.slice(1).forEach(function(word) {
-                if(word.slice(0, 1) === previousLetter) {
-                    console.log("yes");
-                    current++;
+            if(this.game_over !== true) {
+                for(let i = 1; i < this.words.length; i++) {
+                    if(this.words[i - 1].slice(-1) !== this.words[i].slice(0, 1)){
+                        this.game_over = true
+                        this.words = [];
+                        console.log("Game over");
+                    }
+                    if(toMap[this.words[i]]) {
+                        resultToReturn = true;
+                        break;
+                    }
+                    toMap[this.words[i]] = true;
                 }
-            })
+                if(resultToReturn) {
+                    this.game_over = true;
+                    this.words = [];
+                    console.log('word already exist, Game over');
+                }
+            }
         }
     }
 }
-
-
-
 
 const game1 = new Tori();
 
 game1.play("word");
 game1.play("dram");
-game1.play("such");
-console.log(game1.words)
+game1.play("month");
+game1.play("Hit"); // uppercase letter already working
+game1.play("trim");
+game1.play("month"); // duplicate should be Game over
